@@ -3,7 +3,7 @@
   "name": "Hello Cat",
   "description": "Hello Cat",
   "short_name": "hello-cat",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Just a simple Hello Cat extension",
   "icons": {
     "16":  "ui/skin/img/icon_16.png",
@@ -18,8 +18,18 @@
     "title": "Hello Cat"
   },
   "permissions": [
-    "tabs"
+    "tabs",
+    "storage",
+    "identity",
+    "https://www.googleapis.com/"
   ],
+  "oauth2": {
+    "client_id": "283700974810-9j92oo9i5bd2j6cfpc45bujrvf8v4mqa.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/plus.login",
+      "https://www.googleapis.com/auth/chromewebstore.readonly"
+    ]
+  },
   "web_accessible_resources": [
   ]
 }
