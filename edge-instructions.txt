@@ -1,0 +1,14 @@
+Thanks for checking out our Hello Cat extension
+
+Instructions:
+  1.  Download our extension from email / dropbox
+  2.  Unzip the extension
+  3.  Run the file "Setup"
+  4.  Open Microsoft Edge
+  5.  Click the "..." button and then select "Extensions"
+  6.  Click the "Load unpacked extension" button
+  7.  Using the folder picker, select the "source" folder of the extension
+  8.  Click the "Select folder" button
+  9.  Once the extension is loaded, click on Settings and Show it in the address bar
+  10. Then, click on the icon on the address bar
+  11. A new html file with a "Hello Appcoast" message should appear
