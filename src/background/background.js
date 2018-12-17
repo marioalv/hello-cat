@@ -11,35 +11,68 @@ chrome.browserAction.onClicked.addListener(function (activeTab) {
   google.payments.inapp.getPurchases({
     'parameters': {'env': 'prod'},
     'success': getPurchasesSuccess,
-    'failure': getPurchasesSuccess
+    'failure': getPurchasesError
   });
+  //getLicense();
 
-  getLicense();
-
+  var sku = "cat_whiskers";
+  google.payments.inapp.buy({
+    'parameters': {'env': 'prod'},
+    'sku': sku,
+    'success': onPurchase,
+    'failure': onPurchaseFail
+  });
 });
-
 
 console.log("Hello Cat");
 
+//In App purchases
 google.payments.inapp.getPurchases({
   'parameters': {'env': 'prod'},
   'success': getPurchasesSuccess,
-  'failure': getPurchasesSuccess
+  'failure': getPurchasesError
 });
 
 function getPurchasesSuccess(aResponse) {
   console.log(" +++ getPurchases SUCCESS +++ ");
   console.log(aResponse);
-
+  if(0 < aResponse.length) {
+    extensionIconSettings({color:[0, 0, 0, 0]}, "P", "You have paid for the extension");
+    console.log("You have paid for the extension");
+    alert("You have paid for the extension");
+  } else {
+    extensionIconSettings({color:[255, 0, 0, 230]}, "!", "You have not paid for the extension.");
+    console.log("You have NOT paid for the extension");
+    alert("You have NOT paid for the extension");
+  }
 }
 
-function getPurchasesSuccess(aResponse) {
+function getPurchasesError(aResponse) {
   console.log(" +++ getPurchases FAILURE +++ ");
+  console.log(aResponse);
+  extensionIconSettings({color:[255, 0, 0, 230]}, "?", "You have not paid for the extension.");
+}
+
+function onPurchase(aResponse) {
+  console.log(" +++ onPurchase SUCCESS +++ ");
+  console.log(aResponse);
+  extensionIconSettings({color:[0, 0, 0, 0]}, "P", "You have paid for the extension");
+  console.log("Your payment has been completed. Thank you");
+  alert("Your payment has been completed. Thank you");
+}
+
+function onPurchaseFail(aResponse) {
+  console.log(" +++ onPurchaseFail FAILURE +++ ");
   console.log(aResponse);
 }
 
+function extensionIconSettings(badgeColorObject, badgeText, extensionTitle ){
+  chrome.browserAction.setBadgeBackgroundColor(badgeColorObject);
+  chrome.browserAction.setBadgeText({text:badgeText});
+  chrome.browserAction.setTitle({ title: extensionTitle });
+}
 
-
+//License API
 function getLicense() {
   var CWS_LICENSE_API_URL = 'https://www.googleapis.com/chromewebstore/v1.1/userlicenses/';
   xhrWithAuth('GET', CWS_LICENSE_API_URL + chrome.runtime.id, true, onLicenseFetched);
