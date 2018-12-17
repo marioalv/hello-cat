@@ -34,12 +34,22 @@ google.payments.inapp.getPurchases({
 });
 
 function getPurchasesSuccess(aResponse) {
+  /*
+  tempResponse = '{ "response": { "details": [ { "kind": "chromewebstore#payment", "itemId": "1234567", "sku": "cat_whiskers", "createdTime": "1387221267248", "state": "ACTIVE" } ] } }';
+  aResponse = JSON.parse(tempResponse);
+  */
+
   console.log(" +++ getPurchases SUCCESS +++ ");
   console.log(aResponse);
-  if(0 < aResponse.length) {
-    extensionIconSettings({color:[0, 0, 0, 0]}, "P", "You have paid for the extension");
-    console.log("You have paid for the extension");
-    alert("You have paid for the extension");
+  if(0 < aResponse.response.details.length) {
+    $.each(aResponse.response.details, function(aIndex, aValue) {
+      console.log("item: ", aValue);
+      if("cat_whiskers" == aValue.sku) {
+        extensionIconSettings({color:[0, 0, 0, 0]}, "P", "You bought cat_whiskers. You have paid for the extension");
+        console.log("You bought cat_whiskers. You have paid for the extension");
+        alert("You bought cat_whiskers. You have paid for the extension");
+      }
+    });
   } else {
     extensionIconSettings({color:[255, 0, 0, 230]}, "!", "You have not paid for the extension.");
     console.log("You have NOT paid for the extension");
