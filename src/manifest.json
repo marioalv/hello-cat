@@ -3,7 +3,7 @@
   "name": "Hello Cat",
   "description": "Hello Cat",
   "short_name": "hello-cat",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Just a simple Hello Cat extension",
   "icons": {
     "16":  "ui/skin/img/icon_16.png",
